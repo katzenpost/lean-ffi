@@ -2,7 +2,26 @@
 import FFIExample
 import Lean
 
+
+def testX25519 : IO Unit := do
+  let alicePrivateKey : ByteArray ← generatePrivateKey
+  let alicePublicKey := toPublic alicePrivateKey
+
+  let bobPrivateKey : ByteArray ← generatePrivateKey
+  let bobPublicKey := toPublic bobPrivateKey
+
+  let bobSharedSecret := dh bobPrivateKey alicePublicKey
+  let aliceSharedSecret := dh alicePrivateKey bobPublicKey
+
+  if bobSharedSecret.data.data == aliceSharedSecret.data.data then
+    IO.println "X25519 shared secrets match!"
+  else
+    panic! "testX25519 failed!"
+
+
 def main : IO Unit := do
+  testX25519
+
   let _ ← hello
   let result := addFromRust1 1 2
   if result == 3 then
