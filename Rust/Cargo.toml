@@ -1,5 +1,5 @@
 [package]
-name = "crypt_walker_for_lean"
+name = "ffi_example_for_lean"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,5 @@ edition = "2021"
 crate-type = ["staticlib"]
 
 [dependencies]
-libc = "0.2"
-lean-sys = "0.0.7"
-
+lean-sys = { version = "0.0.7", default-features = false, features = ["extern"] }
 

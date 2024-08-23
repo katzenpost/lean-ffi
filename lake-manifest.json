@@ -1,5 +1,5 @@
-{"version": 7,
+{"version": "1.1.0",
  "packagesDir": ".lake/packages",
  "packages": [],
- "name": "crypt_walker",
+ "name": "ffi_example",
  "lakeDir": ".lake"}

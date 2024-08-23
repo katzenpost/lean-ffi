@@ -1,13 +1,4 @@
-extern crate lean_sys;
-
-use lean_sys::{lean_ctor_set, lean_inc, lean_alloc_ctor, lean_object, lean_box, lean_io_result_mk_ok, lean_obj_res, lean_obj_arg};
-
-#[no_mangle]
-pub fn add_one(x: u32) -> u32 {
-    x + 1
-}
-
-
+use lean_sys::*;
 
 #[no_mangle]
 pub extern "C" fn rust_hello(_: lean_obj_arg) -> lean_obj_res {
@@ -16,6 +7,18 @@ pub extern "C" fn rust_hello(_: lean_obj_arg) -> lean_obj_res {
         lean_io_result_mk_ok(lean_box(0)) 
     }
 }
+
+#[no_mangle]
+pub fn add_from_rust1(left: u32, right: u32) -> u32 {
+    left + right
+}
+
+#[no_mangle]
+pub fn add_from_rust2(left: u32, right: u32) -> u32 {
+    left + right
+}
+
+
 
 #[no_mangle]
 pub extern "C" fn create_tuple(a: *mut lean_object, b: *mut lean_object) -> *mut lean_object {
@@ -35,3 +38,16 @@ pub extern "C" fn create_tuple(a: *mut lean_object, b: *mut lean_object) -> *mut
     }
 }
 
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let result = add_from_rust1(2, 2);
+        assert_eq!(result, 4);
+        let result2 = add_from_rust2(2, 2);
+        assert_eq!(result, 4);
+    }
+}
