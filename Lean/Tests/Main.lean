@@ -2,6 +2,9 @@
 import FFIExample
 import Lean
 
+instance : BEq ByteArray where
+  beq a b := a.data = b.data
+
 
 def testX25519 : IO Unit := do
   let alicePrivateKey : ByteArray ← generatePrivateKey
@@ -13,7 +16,7 @@ def testX25519 : IO Unit := do
   let bobSharedSecret := dh bobPrivateKey alicePublicKey
   let aliceSharedSecret := dh alicePrivateKey bobPublicKey
 
-  if bobSharedSecret.data.data == aliceSharedSecret.data.data then
+  if bobSharedSecret == aliceSharedSecret then
     IO.println "X25519 shared secrets match!"
   else
     panic! "testX25519 failed!"

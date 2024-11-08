@@ -3,9 +3,6 @@ open Lake DSL
 
 set_option diagnostics true
 
-require mathlib from git "https://github.com/leanprover-community/mathlib4"@"ef99038"
-
-
 package ffi_example where
   srcDir := "Lean"
 

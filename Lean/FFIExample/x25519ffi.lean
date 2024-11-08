@@ -6,8 +6,6 @@ Inspired by the Haskell FFI X25519:
 https://github.com/haskell-crypto/cryptonite/blob/master/Crypto/PubKey/Curve25519.hs
 -/
 
-import Mathlib.Data.ByteArray
-
 def keySize : Nat := 32
 
 @[extern "curve25519"]
@@ -24,8 +22,10 @@ def dh (privateKey : ByteArray) (publicKey : ByteArray) : ByteArray :=
 def toPublic (privateKey : ByteArray) : ByteArray :=
   dh privateKey basepoint
   where
-  basepoint : ByteArray := String.toAsciiByteArray "\x09\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-
+  basepoint : ByteArray := ByteArray.mk #[0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 def generatePrivateKey : IO ByteArray := do
   let mut arr := ByteArray.mkEmpty 32
   for _ in [0:32] do
