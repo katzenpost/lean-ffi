@@ -9,7 +9,7 @@ The building of this lean package assumes you have a C compiler and a Rust compi
 ```bash
 
 lake build
-lake tests
+lake test
 ```
 
 ## FFI examples
